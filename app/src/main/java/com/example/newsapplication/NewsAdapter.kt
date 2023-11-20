@@ -4,8 +4,10 @@ import Article
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
@@ -33,10 +35,16 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
+        private val imageView: ImageView = itemView.findViewById(R.id.newsImageView)
 
         fun bind(newsItem: Article) {
             titleTextView.text = newsItem.title
             descriptionTextView.text = newsItem.description
+
+            // Use Glide to load the image from the URL into the ImageView
+            Glide.with(itemView.context)
+                .load(newsItem.urlToImage)
+                .into(imageView)
         }
     }
 }
